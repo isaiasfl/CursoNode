@@ -1,8 +1,12 @@
 # CURSO DE NODE JS 
 
+<figure style="text-align: center;">
+  <img src="https://s3-eu-west-1.amazonaws.com/blog.forestadmin.com/2021/09/FA-article-nodeJS@2x-1-.png" alt="Node JS" width="500" >
+</figure>
+
 Este contenido está protegido por derechos de autor © Isaías FL. 2024. Todos los derechos reservados.
 
-### Índice de Estudio para Node.js (Nivel Medio/Avanzado)
+### Índice para el curso de Node.js 
 
 #### 1. **Introducción a Node.js**
 
