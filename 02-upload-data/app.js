@@ -1,25 +1,35 @@
-// import necesarios
+// app.js
 import express from "express";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
-const app = express(); // Creamos la instancia de express
+const app = express();
 
-// para obtener la ruta del fichero actual
-const __filename = fileURLToPath(import.meta.url); // Obtenemos la ruta del fichero
-const __dirname = path.dirname(__filename); // Obtenemos el directorio del fichero
+// Obtener la ruta absoluta de la carpeta actual
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// middleware para servir los archivos estáticos HTML, CSS, JS, imágenes, etc.
-app.use(express.static(path.join(__dirname, "public"))); // Indicamos que la carpeta public es estática
+// Ruta de la carpeta "uploads"
+const uploadsDir = path.join(__dirname, "uploads");
 
-// asociar la carpeta para la subida de archivos en el endpoint /uploads/files
-app.use("/uploads/files", aquí_pongo_la_ruta_de_uploadRoutes); // Indicamos que la carpeta uploads es estática
+// Verificar si la carpeta "uploads" existe, si no, crearla
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log(`Carpeta "${uploadsDir}" creada exitosamente.`);
+} else {
+  console.log(`Carpeta "${uploadsDir}" ya existe.`);
+}
 
-// configuramos el puerto en el que se ejecutará el servidor
-const PORT = 3000; // Si hay un puerto en el entorno lo usamos, si no, usamos el 3000
+// Servir archivos estáticos (como el HTML)
+app.use(express.static(path.join(__dirname, "public")));
 
-// iniciamos el servidor
+// Usar las rutas para manejar uploads/files
+app.use("/uploads", uploadRoutes);
 
+// Configuramos el puerto donde va a escuchar el servidor
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
